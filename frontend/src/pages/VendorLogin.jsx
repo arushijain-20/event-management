@@ -1,38 +1,61 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import '../css/UserLogin.css'
+import '../css/UserLogin.css';
 
 function VendorLogin() {
-  const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false); // For showing a loading state
+  const [error, setError] = useState(""); // State for error messages
+  const navigate = useNavigate();
 
-    const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError(""); // Clear any previous errors
 
-    // Simple login logic for demonstration
-    if (username === "user" && password === "password") {
-      alert("Login successful!");
-      navigate("/vendor"); // Navigate to AfterLogin page
-    } else {
-      alert("Invalid username or password!");
+    try {
+      const response = await fetch("http://localhost:8080/api/vendors/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Login successful!");
+        navigate("/vendor-dashboard"); // Navigate to the vendor dashboard
+      } else {
+        // Show error message returned from the backend
+        setError(data.error || "Invalid email or password!");
+      }
+    } catch (error) {
+      setError("An error occurred while logging in. Please try again.");
+      console.error("Login Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleCancel = () => {
-    navigate('/')
-  }
+    navigate('/');
+  };
+
   return (
     <div className="container">
       <div className="header">Vendor Login</div>
       <form onSubmit={handleLogin} className="form">
-      <div className="row">
-          <label className="label">Vendor Id</label>
+        {error && <div className="error-message">{error}</div>} {/* Error message display */}
+        <div className="row">
+          <label className="label">Email Id</label>
           <input
             type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
@@ -47,15 +70,16 @@ function VendorLogin() {
           />
         </div>
         <div className="button-row">
-          <button className="button cancel" onClick={handleCancel}>Cancel</button>
-          <button className="button login" type="submit">
-            Login <span className="icon">➡️</span>
+          <button className="button cancel" onClick={handleCancel} type="button">
+            Cancel
+          </button>
+          <button className="button login" type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"} <span className="icon">➡️</span>
           </button>
         </div>
-        </form>
-      
+      </form>
     </div>
   );
 }
 
-export default VendorLogin
+export default VendorLogin;
