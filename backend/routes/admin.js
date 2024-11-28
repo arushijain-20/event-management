@@ -40,4 +40,28 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
+router.post("/login", async (req, res) => {
+    
+    const { email, password } = req.body;
+  
+    try {
+      // Find vendor by username
+      const admin = await Admin.findOne({ email });
+      if (!vendor) {
+        return res.status(401).json({ error: "Invalid username or password" });
+      }
+  
+      // Check if password matches
+      const isMatch = await admin.comparePassword(password);
+      if (!isMatch) {
+        return res.status(401).json({ error: "Invalid username or password" });
+      }
+  
+      // Successful login
+      res.status(200).json({ message: "Login successful", adminId: admin._id });
+    } catch (error) {
+      res.status(500).json({ error: "Server error" });
+    }
+  });
+
 module.exports = router;
