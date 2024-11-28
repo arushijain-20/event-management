@@ -4,14 +4,25 @@ const dotenv = require("dotenv");
 const userRoutes = require("./routes/users");
 const vendorRoutes = require("./routes/vendors");
 const adminRoutes = require("./routes/admin");
+const cors = require("cors");
+
+
+
+
+
 
 dotenv.config();
 
 const app = express();
+// Allow requests from specific origins
 
 // Middleware
 app.use(express.json());
-
+app.use(cors({
+    origin: "http://localhost:3001", // Allow your frontend URL
+    methods: "GET,POST,PUT,DELETE", // Allowed HTTP methods
+    allowedHeaders: "Content-Type,Authorization", // Allowed headers
+  }));
 // MongoDB Connection
 const connectDB = require("./config/db");
 connectDB();
