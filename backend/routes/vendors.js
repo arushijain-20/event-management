@@ -16,29 +16,32 @@ router.post("/", async (req, res) => {
 
 // Login Vendor
 router.post("/login", async (req, res) => {
-    
     const { email, password } = req.body;
   
     try {
-      // Find vendor by username
-      const vendor = await Vendor.findOne({ email });
-      if (!vendor) {
-        return res.status(401).json({ error: "Invalid username or password" });
+      // Validate input fields
+      if (!email || !password) {
+        return res.status(400).json({ error: "Email and password are required" });
       }
   
-      // Check if password matches
-      const isMatch = await vendor.comparePassword(password);
-      if (!isMatch) {
-        return res.status(401).json({ error: "Invalid username or password" });
+      // Find vendor by email
+      const vendor = await Vendor.findOne({ email });
+      if (!vendor) {
+        return res.status(401).json({ error: "Invalid email or password" });
+      }
+  
+      // Compare password (plain text)
+      if (vendor.password !== password) {
+        return res.status(401).json({ error: "Invalid email or password" });
       }
   
       // Successful login
       res.status(200).json({ message: "Login successful", vendorId: vendor._id });
     } catch (error) {
-      res.status(500).json({ error: "Server error" });
+      console.error("Login error:", error); // Log the error for debugging
+      res.status(500).json({ error: "Server error", message: error.message });
     }
   });
-  
 
 // Get All Vendors
 router.get("/", async (req, res) => {

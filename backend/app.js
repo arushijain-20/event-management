@@ -19,7 +19,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:3001", // Allow your frontend URL
+    origin: "http://localhost:3000", // Allow your frontend URL
     methods: "GET,POST,PUT,DELETE", // Allowed HTTP methods
     allowedHeaders: "Content-Type,Authorization", // Allowed headers
   }));
