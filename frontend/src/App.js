@@ -13,6 +13,10 @@ import OrderStatus from "./pages/orderStatus";
 import Cart from "./pages/Cart";
 import Checkout from './pages/CheckoutCart'
 import Popup from "./pages/PopUp";
+import AddUser from "./pages/AddUser";
+import DelUser from "./pages/DelUser";
+import AddVendor from "./pages/AddVendor";
+import DelVendor from "./pages/DelVendor";
 
 const App = () => (
   <Router>
@@ -24,7 +28,11 @@ const App = () => (
       <Route path="/vendor-login" element={<VendorLogin/>} />
       <Route path="/admin" element={<Admin/>} />
       <Route path="/admin/maintainUser" element={<MaintainUser/>} />
+      <Route path="/admin/maintainUser/addUser" element={<AddUser/>} />
+      <Route path="/admin/maintainUser/addUser/delUser" element={<DelUser/>} />
       <Route path="/admin/maintainVendor" element={<MaintainVendor/>} />
+      <Route path="/admin/maintainVendor/addVendor" element={<AddVendor/>} />
+      <Route path="/admin/maintainVendor/delVendor" element={<DelVendor/>} />
       <Route path="/user" element={<User/>} />
       <Route path="/vendor" element={<Vendor/>} />
       <Route path="/cart" element={<Cart/>} />

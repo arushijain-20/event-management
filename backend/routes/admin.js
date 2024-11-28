@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
       }
   
       // Successful login
-      res.status(200).json({ message: "Login successful", adminId: admin._id });
+      res.status(200).json({ message: "Login successful", adminId: admin._id, name: admin.name });
     } catch (error) {
       console.error("Login error:", error); // Log the error for debugging
       res.status(500).json({ error: "Server error", message: error.message });

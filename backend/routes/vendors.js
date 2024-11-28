@@ -14,6 +14,15 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.get("/", async (req, res) => {
+  try {
+    const vendors = await Vendor.find({}, "_id email"); // Retrieve only the _id and email
+    res.json(vendors);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Login Vendor
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;

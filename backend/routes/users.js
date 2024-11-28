@@ -14,6 +14,14 @@ router.post("/", async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 });
+router.get("/", async (req, res) => {
+    try {
+      const users = await User.find({}, "_id email"); // Retrieve only the _id and email
+      res.json(users);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
 
 // Get All Users
 router.get("/", async (req, res) => {
@@ -92,5 +100,7 @@ router.delete("/:id", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+
 
 module.exports = router;

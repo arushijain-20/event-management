@@ -26,11 +26,11 @@ function AdminLogin() {
       });
 
       const data = await response.json();
-      
 
       if (response.ok) {
         alert("Login successful!");
-        navigate("/admin"); // Navigate to the vendor dashboard
+        localStorage.setItem("adminName", data.name);
+        navigate("/admin"); 
       } else {
         // Show error message returned from the backend
         setError(data.error || "Invalid email or password!");

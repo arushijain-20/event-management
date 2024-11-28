@@ -7,6 +7,7 @@ const VendorSchema = new mongoose.Schema({
     password:{type:String,required: true},
     category: { type: String, required: true },
     contact:{type:Number,required: true },
+    membership:{type:Number,default: 6},
     items: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Item', // This will be a reference to the Item model

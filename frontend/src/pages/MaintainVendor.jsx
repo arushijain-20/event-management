@@ -9,6 +9,12 @@ function MaintainVendor() {
   const handleLogout = () => {
     navigate('/');
   };
+  const handleAdd = () => {
+    navigate('/admin/maintainVendor/addVendor');
+  };
+  const handleDel = () => {
+    navigate('/admin/maintainVendor/delVendor');
+  };
 
   return (
     <div
@@ -86,7 +92,7 @@ function MaintainVendor() {
         <div className="flex items-center gap-4 bg-slate-50 px-4 min-h-14 justify-between">
           <p className="text-[#0e141b] text-base font-normal leading-normal flex-1 truncate">Add Vendor</p>
           <div className="shrink-0">
-            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 bg-[#e7edf3] text-[#0e141b] text-sm font-medium leading-normal w-fit">
+            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 bg-[#e7edf3] text-[#0e141b] text-sm font-medium leading-normal w-fit" onClick={handleAdd}>
               <span className="truncate">Add</span>
             </button>
           </div>
@@ -94,7 +100,7 @@ function MaintainVendor() {
         <div className="flex items-center gap-4 bg-slate-50 px-4 min-h-14 justify-between">
           <p className="text-[#0e141b] text-base font-normal leading-normal flex-1 truncate">Delete Vendor</p>
           <div className="shrink-0">
-            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 bg-[#e7edf3] text-[#0e141b] text-sm font-medium leading-normal w-fit">
+            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 bg-[#e7edf3] text-[#0e141b] text-sm font-medium leading-normal w-fit" onClick={handleDel}>
               <span className="truncate">Delete</span>
             </button>
           </div>
