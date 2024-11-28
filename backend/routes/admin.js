@@ -41,26 +41,30 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-    
     const { email, password } = req.body;
   
     try {
-      // Find vendor by username
-      const admin = await Admin.findOne({ email });
-      if (!vendor) {
-        return res.status(401).json({ error: "Invalid username or password" });
+      // Validate input fields
+      if (!email || !password) {
+        return res.status(400).json({ error: "Email and password are required" });
       }
   
-      // Check if password matches
-      const isMatch = await admin.comparePassword(password);
-      if (!isMatch) {
-        return res.status(401).json({ error: "Invalid username or password" });
+      // Find vendor by email
+      const admin = await Admin.findOne({ email });
+      if (!admin) {
+        return res.status(401).json({ error: "Invalid email or password" });
+      }
+  
+      // Compare password (plain text)
+      if (admin.password !== password) {
+        return res.status(401).json({ error: "Invalid email or password" });
       }
   
       // Successful login
       res.status(200).json({ message: "Login successful", adminId: admin._id });
     } catch (error) {
-      res.status(500).json({ error: "Server error" });
+      console.error("Login error:", error); // Log the error for debugging
+      res.status(500).json({ error: "Server error", message: error.message });
     }
   });
 
