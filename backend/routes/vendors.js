@@ -36,7 +36,7 @@ router.post("/login", async (req, res) => {
       }
   
       // Successful login
-      res.status(200).json({ message: "Login successful", vendorId: vendor._id, name: vendor.name });
+      res.status(200).json({ message: "Login successful", vendorId: vendor._id, name:vendor.name});
     } catch (error) {
       console.error("Login error:", error); // Log the error for debugging
       res.status(500).json({ error: "Server error", message: error.message });
