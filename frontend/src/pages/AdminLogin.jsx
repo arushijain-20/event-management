@@ -19,7 +19,7 @@ function AdminLogin() {
           Event Management System
         </div>
         <div className="form-group mb-4">
-          <label htmlFor="userId" className="block text-sm font-medium text-gray-700">User Id</label>
+          <label htmlFor="userId" className="block text-sm font-medium text-gray-700">Email</label>
           <input
             type="text"
             id="userId"

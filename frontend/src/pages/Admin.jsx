@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from "react-router-dom";
 import '../css/Admin.css'
 
-function Admin() {
+function Admin({name}) {
     const navigate = useNavigate();
 
     const handleUser = () => {
@@ -27,7 +27,7 @@ function Admin() {
               LogOut</button> 
             </div> 
             <div className="flex flex-col items-center justify-center flex-grow space-y-4"> 
-              <h1 className="text-2xl font-bold border border-black bg-white text-black px-8 py-3 rounded">Welcome Admin</h1>
+              <h1 className="text-2xl font-bold border border-black bg-white text-black px-8 py-3 rounded">Welcome {name}</h1>
                <button className="border border-black bg-black text-white px-8 py-2 rounded w-64" onClick={handleUser}>
                 Maintain User</button> 
                <button className="border border-black bg-black text-white px-8 py-2 rounded w-64" onClick={handleVendor}>

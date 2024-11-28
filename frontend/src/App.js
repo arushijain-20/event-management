@@ -32,6 +32,7 @@ const App = () => (
       <Route path="/cart/checkout/popup" element={<Popup/>} />
     </Routes>
   </Router>
+
 );
 
 export default App;
