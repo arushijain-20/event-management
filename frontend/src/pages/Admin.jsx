@@ -16,17 +16,25 @@ function Admin() {
       navigate("/");
     }
     const handleHome = ()=>{
-      navigate("/");
+      navigate("/admin");
     }
         return (
-            <div className="admin-dashboard">
-              <button className="button top-left" onClick={handleHome}>Home</button>
-              <button className="button top-right" onClick={handleLogout}>LogOut</button>
-              <div className="welcome">Welcome Admin</div>
-              <button className="button bottom-left" onClick={handleUser}>Maintain User</button>
-              <button className="button bottom-right" onClick={handleVendor}>Maintain Vendor</button>
-            </div>
-          );
+          <div className="flex flex-col h-screen justify-between bg-slate-50 px-20"> 
+          <div className="flex justify-between p-4"> 
+            <button className="border border-black bg-black text-white px-6 py-2 rounded w-48" onClick={handleHome}>
+              Home</button> 
+            <button className="border border-black bg-black text-white px-6 py-2 rounded w-48" onClick={handleLogout}>
+              LogOut</button> 
+            </div> 
+            <div className="flex flex-col items-center justify-center flex-grow space-y-4"> 
+              <h1 className="text-2xl font-bold border border-black bg-white text-black px-8 py-3 rounded">Welcome Admin</h1>
+               <button className="border border-black bg-black text-white px-8 py-2 rounded w-64" onClick={handleUser}>
+                Maintain User</button> 
+               <button className="border border-black bg-black text-white px-8 py-2 rounded w-64" onClick={handleVendor}>
+                Maintain Vendor</button> 
+               </div>
+                </div>
+                  );
     
 }
 
