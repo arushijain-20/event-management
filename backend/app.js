@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const userRoutes = require("./routes/users");
 const vendorRoutes = require("./routes/vendors");
 const adminRoutes = require("./routes/admin");
+const cartRoutes = require("./routes/cart");
 const cors = require("cors");
 
 
@@ -19,8 +20,8 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:3000", // Allow your frontend URL
-    methods: "GET,POST,PUT,DELETE", // Allowed HTTP methods
+    origin: "http://localhost:3002", // Allow your frontend URL
+    methods: "GET,POST,PATCH,PUT,DELETE", // Allowed HTTP methods
     allowedHeaders: "Content-Type,Authorization", // Allowed headers
   }));
 // MongoDB Connection
@@ -31,6 +32,7 @@ connectDB();
 app.use("/api/users", userRoutes);
 app.use("/api/vendors", vendorRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/cart", cartRoutes);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {

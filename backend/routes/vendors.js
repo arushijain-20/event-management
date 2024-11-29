@@ -61,10 +61,30 @@ router.post("/login", async (req, res) => {
     }
   });
 
-// Get All Vendors
-router.get("/", async (req, res) => {
+router.get('/category/:category', async(req, res) => {
+    // Get the category from the URL
     try {
-        const vendors = await Vendor.find();
+        const category = req.params.category; // Get the category from the URL
+        const vendors =  await Vendor.find({ category }); // Find vendors matching the category
+    
+        if (vendors.length === 0) {
+          return res.status(404).json({ message: "No vendors found for this category." });
+        }
+        
+    
+        res.json(vendors); // Send the vendors as a response
+      } catch (err) {
+        console.error("Error fetching vendors", err);
+        res.status(500).json({ message: "Server error." });
+      }
+  });
+
+
+// Get All Vendors
+router.get("/:id", async (req, res) => {
+    try {
+        const id = req.params.id
+        const vendors = await Vendor.findById(id);
         res.json(vendors);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -72,25 +92,28 @@ router.get("/", async (req, res) => {
 });
 
 // Update Vendor Membership
-router.patch("/:id/membership_duration", async (req, res) => {
+router.patch("/update_membership", async (req, res) => {
     try {
-        const vendorId = req.params.id;
-        const { membership_duration } = req.body;
+        const { email, membership_duration } = req.body; // Extract email and membership_duration from the request body
 
-        if (!membership_duration || typeof membership_duration !== "number") {
-            return res.status(400).json({ error: "Invalid membership value" });
+        // Validate email format (optional)
+        if (email && !/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email)) {
+            return res.status(400).json({ error: "Invalid email format" });
         }
 
-        const vendor = await Vendor.findByIdAndUpdate(
-            vendorId,
-            { membership_duration },
-            { new: true, runValidators: true }
+        // Find user by email and update membership_duration
+        const vendor = await Vendor.findOneAndUpdate(
+            { email }, // Find user by email
+            { membership_duration }, // Update the membership_duration
+            { new: true, runValidators: true } // Return the updated user and run validation
         );
 
+        // If no user is found, return an error
         if (!vendor) {
-            return res.status(404).json({ error: "Vendor not found" });
+            return res.status(404).json({ error: "User not found" });
         }
 
+        // Return the updated user
         res.json(vendor);
     } catch (err) {
         res.status(400).json({ error: err.message });
@@ -141,6 +164,24 @@ router.post("/:vendorId/items", async (req, res) => {
     } catch (err) {
       res.status(400).json({ error: err.message });
     }
+  });
+
+
+router.get('/:id/items', async(req, res) => {
+    // Get the category from the URL
+    try {
+        const id = req.params.id; // Get the category from the URL
+        const vendor =  await Vendor.findById(id).populate('items'); // Find vendors matching the category
+    
+        if (!vendor) {
+            return res.status(404).json({ error: "Vendor not found" });
+        }
+        
+        res.json(vendor.items); // Send the vendors as a response
+      } catch (err) {
+        console.error("Error fetching vendors", err);
+        res.status(500).json({ message: "Server error." });
+      }
   });
 
 module.exports = router;

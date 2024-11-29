@@ -1,45 +1,26 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import { useNavigate } from "react-router-dom";
-// import '../css/Admin.css'
-import { useLocation } from "react-router-dom";
+import { useUser } from '../context/UserContext';
+import Navbar from '../components/Navbar';
+
 
 
 function Admin() {
-  const [adminName, setAdminName] = useState("");
   const navigate = useNavigate();
+  const { user } = useUser();
   
     const handleUser = () => {
-      navigate("/admin/maintainUser");
+      navigate("/admin/maintain/user");
     }
 
     const handleVendor = ()=>{
-      navigate("/admin/maintainVendor");
+      navigate("/admin/maintain/vendor");
     }
-    const handleLogout = ()=>{
-      navigate("/");
-    }
-    const handleHome = ()=>{
-      navigate("/");
-    }
-    useEffect(() => {
-      const name = localStorage.getItem("adminName");
-      if (name) {
-        setAdminName(name);
-      } else {
-        // Handle case if vendorName is not in localStorage (e.g., redirect to login page)
-        // navigate("/login");
-      }
-    }, []);
         return (
           <div className="flex flex-col h-screen justify-between bg-slate-50 px-20"> 
-          <div className="flex justify-between p-4"> 
-            <button className="border border-black bg-black text-white px-6 py-2 rounded w-48" onClick={handleHome}>
-              Home</button> 
-            <button className="border border-black bg-black text-white px-6 py-2 rounded w-48" onClick={handleLogout}>
-              LogOut</button> 
-            </div> 
+            <Navbar/>
             <div className="flex flex-col items-center justify-center flex-grow space-y-4"> 
-              <h1 className="text-2xl font-bold border border-black bg-white text-black px-8 py-3 rounded">Welcome {adminName}</h1>
+              <h1 className="text-2xl font-bold border border-black bg-white text-black px-8 py-3 rounded">Welcome {user ? user.name : "Admin"}</h1>
                <button className="border border-black bg-black text-white px-8 py-2 rounded w-64" onClick={handleUser}>
                 Maintain User</button> 
                <button className="border border-black bg-black text-white px-8 py-2 rounded w-64" onClick={handleVendor}>

@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 
 function AddUser() {
@@ -66,9 +67,10 @@ function AddUser() {
   };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-slate-50 max-w-3xl">
-        <div className="w-full max-w-2xl bg-white shadow-md rounded-lg p-8">
-          <div className="text-2xl font-bold text-center mb-6 ">
+      <div className="flex flex-col h-screen justify-between bg-slate-50 px-20">
+      <div className="flex flex-col max-w-4xl mx-auto w-full">
+        <Navbar />
+          <div className="text-2xl font-bold text-center my-6 ">
             Add User
           </div>
           <form onSubmit={handleSubmit} className="form">

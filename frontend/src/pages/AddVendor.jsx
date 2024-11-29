@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 
 function AddVendor() {
@@ -63,9 +64,10 @@ function AddVendor() {
   };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-slate-50 max-w-2xl">
-        <div className="w-full max-w-2xl bg-white shadow-md rounded-lg p-8">
-          <div className="text-2xl font-bold text-center mb-6 ">
+      <div className="flex flex-col h-screen justify-between bg-slate-50 px-20">
+      <div className="flex flex-col max-w-4xl mx-auto w-full">
+        <Navbar />
+          <div className="text-2xl font-bold text-center my-6 ">
             Add Vendor
           </div>
           <form onSubmit={handleSubmit} className="form">
@@ -125,9 +127,11 @@ function AddVendor() {
                 id="category"
                 className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
                 required
+               
                 value={category}
                 onChange={(e) => setCategory(e.target.value)} 
               >
+                <option value="">--Select--</option> 
                 <option value={"Florist"}>Florist</option>
                 <option value={"Lighting"}>Lighting</option>
                 <option value={"Catering"}>Catering</option>
