@@ -27,7 +27,8 @@ function VendorLogin() {
 
       if (response.ok) {
         alert("Login successful!");
-        navigate("/vendor-dashboard"); // Navigate to the vendor dashboard
+        navigate("/vendor"); 
+        localStorage.setItem("vendorName", data.name);
       } else {
         // Show error message returned from the backend
         setError(data.error || "Invalid email or password!");

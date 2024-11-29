@@ -13,8 +13,8 @@ function Vendor() {
         <div className="App">
           <header className="App-header">
             <div className="welcome-banner">
-              <h1>Welcome</h1>
-              <h2>Vendor</h2>
+              <h1>Welcome {localStorage.getItem("vendorName")}</h1>
+              
             </div>
             <div className="button-container">
               <button className="ui-button">Your Item</button>

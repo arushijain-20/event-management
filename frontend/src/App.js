@@ -8,11 +8,12 @@ import Admin from "./pages/Admin";
 import MaintainUser from "./pages/MaintainUser";
 import MaintainVendor from "./pages/MaintainVendor";
 import User from './pages/User'
-import Vendor from "./pages/vendor";
+
 import OrderStatus from "./pages/orderStatus";
 import Cart from "./pages/Cart";
 import Checkout from './pages/CheckoutCart'
 import Popup from "./pages/PopUp";
+import Vendor from "./pages/Vendor";
 
 const App = () => (
   <Router>

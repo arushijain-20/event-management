@@ -15,6 +15,15 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.get("/", async (req, res) => {
+    try {
+      const users = await User.find({}, "_id email"); // Retrieve only the _id and email
+      res.json(users);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
 // Get All Users
 router.get("/", async (req, res) => {
     try {
@@ -25,16 +34,16 @@ router.get("/", async (req, res) => {
     }
 });
 
-// Create User
-router.post("/", async (req, res) => {
-    try {
-        const user = new User(req.body);
-        await user.save();
-        res.status(201).json(user);
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-});
+// // Create User
+// router.post("/", async (req, res) => {
+//     try {
+//         const user = new User(req.body);
+//         await user.save();
+//         res.status(201).json(user);
+//     } catch (err) {
+//         res.status(400).json({ error: err.message });
+//     }
+// });
 
 // Get particular User
 router.get("/:id", async (req, res) => {
@@ -80,8 +89,8 @@ router.patch("/:id/update_membership", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     try {
         const userId = req.params.id;
-
-        const user = await User.findByIdAndDelete(userId);
+    
+        const user = await User.findByIdAndDelete(u._id);
 
         if (!user) {
             return res.status(404).json({ error: "User not found" });
@@ -92,5 +101,7 @@ router.delete("/:id", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+
 
 module.exports = router;
